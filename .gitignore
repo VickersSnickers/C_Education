@@ -1,0 +1,14 @@
+.vscode/tasks.json
+.vscode/settings.json
+.vscode/c_cpp_properties.json
+test2.exe
+test.exe
+ShellSort.exe
+randomMt.exe
+list.exe
+lecture2sort.exe
+InterestingSort.exe
+chrono.exe
+test.cpp
+test2.cpp
+ShellSortOld.cpp
