@@ -1,4 +1,5 @@
 .vscode
+test*
 build_*/
 lib/
 *.exe
