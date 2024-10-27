@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 using namespace std;
 
 void print_array(int arr[], int size){
@@ -7,6 +8,14 @@ void print_array(int arr[], int size){
     }
     cout << endl;
 }
+
+int* RandArray(int size, double max){
+    mt19937 mt(time(nullptr));
+    int* a = new int[size];
+    for (int i = 0; i < size; ++i)
+        a[i] = (mt() % (int)max);
+    return a;
+};
 
 void Merge(int A[], int p, int q, int r){   // p - firstElemIndex, q - divider, r - lastElemIndex
     int n1 = q - p + 1;
@@ -45,9 +54,9 @@ void Merge_Sort(int A[], int p, int r){
 
 
 int main() {
-    int arr[13] = {17, 29, 43, 8, 93, 74, 22, 16, 4, 19, 52, 0, 7 };
-    print_array(arr, 13);
-    Merge_Sort(arr, 0, 12);
-    print_array(arr, 13);
-
+    int size = 10;
+    int* arr = RandArray(size, 1000);
+    print_array(arr, size);
+    Merge_Sort(arr, 0, size-1);
+    print_array(arr, size);
 }
