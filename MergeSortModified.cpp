@@ -69,10 +69,7 @@ int Merge_Sort(int A[], int p, int r){
 
 
 int main() {
-    int size = 10;
-    int* arr = RandArray(size, 1000);
-    print_array(arr, size);
-    cout << Merge_Sort(arr, 0, size-1) << endl;
-    print_array(arr, size);
-    
+    int size = pow(10, 3);
+    int* arr = RandArray(size, pow(2, 32));
+    cout << "Найдено " << Merge_Sort(arr, 0, size-1) << " пар" << endl;   
 }
