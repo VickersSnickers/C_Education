@@ -106,9 +106,12 @@ duration<double> Elapsed_Seconds(bool type, int A[], int size, int m){      //ty
 }
 
 int main() {
-    int size = pow(10, 4);
-    int *arr = RandArray(size, pow(2, 16));
     cout << fixed;
-    cout << Elapsed_Seconds(1, arr, size, 4).count() << endl;
-    cout << Elapsed_Seconds(0, arr, size, 4).count() << endl;
+    for (int size = pow(10, 3); size < pow(10, 6); size *= 10){
+        int *arr = RandArray(size, pow(2, 16));
+        int m = log2(size);         // оптимальное m
+        cout << Elapsed_Seconds(1, arr, size, m).count() << endl;
+        cout << Elapsed_Seconds(0, arr, size, m).count() << endl;
+        cout << endl;
+    }
 }
