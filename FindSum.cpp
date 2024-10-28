@@ -1,35 +1,37 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
+#include <set>
 using namespace std;
 
-void print_array(int arr[], int size){
-    for (int i = 0; i < size; ++i){
-        cout << arr[i] << " ";
+void print_array(vector<int>arr){
+    for (int elem: arr){
+        cout << elem << " ";
     }
     cout << endl;
 }
 
-int* RandArray(int size, double max){
-    int* a = new int[size];
-    for (int i = 0; i < size; ++i)
-        a[i] = i;
+vector<int> RandArray(int size){
+    vector<int> a;
+    for (int i = 0; i < size; ++i){
+        a.push_back(i);
+    }
     random_device rd;
     mt19937 gen(rd());
-    shuffle(a, a + size, gen);
+    shuffle(a.begin(), a.end(), gen);
     return a;
 };
 
-void Merge(int A[], int p, int q, int r){   // p - firstElemIndex, q - divider, r - lastElemIndex
+void Merge(vector<int>& A, int p, int q, int r){   // p - firstElemIndex, q - divider, r - lastElemIndex
     int n1 = q - p + 1;
-    int L[n1] = {};
+    vector<int> L;
     for (int i = 0; i < n1; ++i){
-        L[i] = A[p + i];
+        L.push_back(A[p + i]);
     }
     int n2 = r - q;
-    int R[n2] = {};
+    vector<int> R;
     for (int i = 0; i < n2; ++i){
-        R[i] = A[q + i + 1];
+        R.push_back(A[q + i + 1]);
     }
     int i = 0, j = 0, k = p;
 
@@ -56,7 +58,7 @@ void Merge(int A[], int p, int q, int r){   // p - firstElemIndex, q - divider, 
     
 }
 
-void Merge_Sort(int A[], int p, int r){
+void Merge_Sort(vector<int>& A, int p, int r){
     if (p < r) {
         int q = (p + r)/2;
         Merge_Sort(A, p, q);
@@ -67,8 +69,9 @@ void Merge_Sort(int A[], int p, int r){
 
 
 int main() {
-    int size = pow(10, 3);
-    int* arr = RandArray(size, pow(2, 32));
+    int size = 10;
+    vector<int> arr = RandArray(size);
+    print_array(arr);
     Merge_Sort(arr, 0, size-1);
     
     int S;

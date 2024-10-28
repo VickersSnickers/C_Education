@@ -2,31 +2,31 @@
 #include <random>
 using namespace std;
 
-void print_array(int arr[], int size){
-    for (int i = 0; i < size; ++i){
-        cout << arr[i] << " ";
+void print_array(vector<int>arr){
+    for (int elem: arr){
+        cout << elem << " ";
     }
     cout << endl;
 }
 
-int* RandArray(int size, double max){
+vector<int> RandArray(int size, double max){
     mt19937 mt(time(nullptr));
-    int* a = new int[size];
+    vector<int> a;
     for (int i = 0; i < size; ++i)
-        a[i] = (mt() % (int)max);
+        a.push_back((mt() % (int)max));
     return a;
 };
 
-int Merge(int A[], int p, int q, int r){   // p - firstElemIndex, q - divider, r - lastElemIndex
+int Merge(vector<int>& A, int p, int q, int r){   // p - firstElemIndex, q - divider, r - lastElemIndex
     int n1 = q - p + 1;
-    int L[n1] = {};
+    vector<int> L;
     for (int i = 0; i < n1; ++i){
-        L[i] = A[p + i];
+        L.push_back(A[p + i]);
     }
     int n2 = r - q;
-    int R[n2] = {};
+    vector<int> R;
     for (int i = 0; i < n2; ++i){
-        R[i] = A[q + i + 1];
+        R.push_back(A[q + i + 1]);
     }
     int i = 0, j = 0, k = p, pairs = 0;
 
@@ -56,7 +56,7 @@ int Merge(int A[], int p, int q, int r){   // p - firstElemIndex, q - divider, r
     
 }
 
-int Merge_Sort(int A[], int p, int r){
+int Merge_Sort(vector<int>& A, int p, int r){
     int pairs = 0;
     if (p < r) {
         int q = (p + r)/2;
@@ -67,9 +67,24 @@ int Merge_Sort(int A[], int p, int r){
     return pairs;
 }
 
+int InterestingPairs(vector<int>& A){
+    int count = 0;
+    for (int i = 0; i < A.size() - 1; ++i){
+        for (int j = i + 1; j < A.size(); ++j){
+            if (A[i] > A[j]){
+                count += 1;
+            }
+        }
+    }
+    return count;
+}
 
 int main() {
     int size = pow(10, 3);
-    int* arr = RandArray(size, pow(2, 32));
-    cout << "Найдено " << Merge_Sort(arr, 0, size-1) << " пар" << endl;   
+    vector<int>A = RandArray(size, pow(2, 32));
+    vector<int>dublicate(A.begin(), A.end());
+    int pairs = Merge_Sort(A, 0, size-1);
+    int pairs_check = InterestingPairs(dublicate);
+    cout << "Найдено " << pairs << " пар с помощью MergeSort" << endl;   
+    cout << "Найдено " << pairs_check << " пар с помощью N^2" << endl; 
 }
